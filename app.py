@@ -32,16 +32,16 @@ if not st.session_state.logged_in:
                 st.error("Wrong username / password. Illana Sign Up pannu!")
 
     with tab2:
-        new_user = st.text_input("Pudhu Username", key="new_user")
-        new_pwd = st.text_input("Pudhu Password", type="password", key="new_pwd")
-        if st.button("Account Create Pannu"):
+        new_user = st.text_input(" Username", key="new_user")
+        new_pwd = st.text_input(" Password", type="password", key="new_pwd")
+        if st.button(" Create Account"):
             if new_user == "" or new_pwd == "":
-                st.warning("Username & Password type pannu!")
+                st.warning("Type Username & Password!")
             elif new_user in st.session_state.users:
-                st.error("Intha username already iruku! Vera name vaithu paaru")
+                st.error("This Username Already Exists.Try A Different One!")
             else:
                 st.session_state.users[new_user] = new_pwd
-                st.success(f"Super! {new_user} account create aayiduchu! Ippo Login pannu!")
+                st.success(f"Super! {new_user} Account Is Successfully created! Login now!")
     st.stop()
 
 # MAIN APP
@@ -60,10 +60,10 @@ st.divider()
 
 # SEND MONEY - GPay maathiri
 st.subheader("📤 Send Money")
-receiver = st.selectbox("Yaaruku anuppa pora?", ["Amma", "Appa", "Friend - Priya", "Friend - Anu", "Shop - Murugan Store"])
+receiver = st.selectbox("Yaaruku anuppa pora?", ["Amma", "Appa", "Friend - uma", "Friend - mukil", "Shop - Murugan Store"])
 amount = st.number_input("Amount (₹)", min_value=1, value=100)
 time = st.slider("Time (Hour)", 0, 23, 12)
-location = st.selectbox("Location", ["Chennai", "Mumbai", "Delhi", "Coimbatore"])
+location = st.selectbox("Location", ["Chennai", "Mumbai", "Delhi", "Coimbatore","Sayalkudi","vembar"])
 
 if st.button("CHECK PANNU & SEND"):
     # Fraud Check - Simple Rule
