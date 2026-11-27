@@ -17,7 +17,7 @@ if "users" not in st.session_state:
 # LOGIN / SIGNUP PAGE
 if not st.session_state.logged_in:
     st.title("💸 SafePay")
-    st.write("GPay / PhonePe maathiri Safe Payment App")
+    st.write("GPay / welcom mam/sir")
     tab1, tab2 = st.tabs(["Login", "Sign Up"])
 
     with tab1:
