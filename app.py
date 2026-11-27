@@ -66,7 +66,7 @@ if len(st.session_state.history) > 0:
     st.bar_chart(df["Result"].value_counts())
     st.subheader("📜 History")
     st.dataframe(df, use_container_width=True)
-        csv = df.to_csv(index=False).encode('utf-8')
+    csv = df.to_csv(index=False).encode('utf-8')
     st.download_button("📥 Report Download Pannu", csv, "SafePay_Report.csv", "text/csv", use_container_width=True)
 else:
     st.write("Innum ethuvum check pannala. Mela poi check pannu.")
