@@ -64,9 +64,32 @@ if st.button("CHECK PANNU & SEND"):
         st.balloons()
         st.session_state.history.append([amount, receiver, "SAFE"])
         st.rerun()
-
 st.divider()
 
+# QR CODE - GPay maathiri
+st.subheader("📷 My QR Code")
+st.image("https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=kaveri@okSafePay", width=200)
+st.write("UPI ID: kaveri@okSafePay")
+st.write("Itha scan panni yaarum unaku kaasu anuppalalam!")
+
+st.subheader("📱 Scan & Pay")
+upi_id = st.text_input("UPI ID / QR la irukura peru", placeholder="ex: priya@okHDFC")
+qr_amount = st.number_input("QR Amount (Rs.)", min_value=1, value=50, key="qr_amt")
+
+if st.button("QR vazhiya Pay pannu"):
+    if upi_id == "":
+        st.warning("UPI ID ah type pannu Kaveri!")
+    elif qr_amount > st.session_state.balance:
+        st.error("Balance pothathu!")
+    elif qr_amount > 100000:
+        st.error("🚨 FRAUD Alert! Itha anuppa mudiyathu!")
+    else:
+        st.session_state.balance -= qr_amount
+        st.success(f"✅ Rs. {qr_amount} {upi_id} ku QR vazhiya anuppiyachu!")
+        st.balloons()
+        st.session_state.history.append([qr_amount, upi_id, "SAFE - QR"])
+        st.rerun()
+st.divider()
 # HISTORY
 st.subheader("📜 History")
 if len(st.session_state.history) == 0:
