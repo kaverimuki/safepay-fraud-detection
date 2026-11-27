@@ -10,26 +10,43 @@ if "balance" not in st.session_state:
     st.session_state.balance = 5000
 if "history" not in st.session_state:
     st.session_state.history = []
+# USERS LIST - Yellarum Sign Up pannalam
+if "users" not in st.session_state:
+    st.session_state.users = {"kaveri": "1234"}
 
-# LOGIN PAGE
+# LOGIN / SIGNUP PAGE
 if not st.session_state.logged_in:
     st.title("💸 SafePay")
     st.write("GPay / PhonePe maathiri Safe Payment App")
-    user = st.text_input("Username")
-    pwd = st.text_input("Password", type="password")
-    if st.button("Login"):
-        if user == "kaveri" and pwd == "1234":
-            st.session_state.logged_in = True
-            st.rerun()
-        else:
-            st.error("Wrong username / password")
-    st.info("Demo Login: kaveri / 1234")
+    tab1, tab2 = st.tabs(["Login", "Sign Up"])
+
+    with tab1:
+        user = st.text_input("Username", key="login_user")
+        pwd = st.text_input("Password", type="password", key="login_pwd")
+        if st.button("Login"):
+            if user in st.session_state.users and st.session_state.users[user] == pwd:
+                st.session_state.logged_in = True
+                st.session_state.current_user = user
+                st.rerun()
+            else:
+                st.error("Wrong username / password. Illana Sign Up pannu!")
+
+    with tab2:
+        new_user = st.text_input("Pudhu Username", key="new_user")
+        new_pwd = st.text_input("Pudhu Password", type="password", key="new_pwd")
+        if st.button("Account Create Pannu"):
+            if new_user == "" or new_pwd == "":
+                st.warning("Username & Password type pannu!")
+            elif new_user in st.session_state.users:
+                st.error("Intha username already iruku! Vera name vaithu paaru")
+            else:
+                st.session_state.users[new_user] = new_pwd
+                st.success(f"Super! {new_user} account create aayiduchu! Ippo Login pannu!")
     st.stop()
 
 # MAIN APP
 st.title("💸 SafePay")
-st.write("Welcome Kaveri! 👋")
-
+st.write(f"Welcome {st.session_state.get('current_user', 'Kaveri')}! 👋")
 # WALLET BALANCE - GPay maathiri
 st.markdown(f"### 💰 Wallet Balance: ₹ {st.session_state.balance}")
 st.progress(100)
