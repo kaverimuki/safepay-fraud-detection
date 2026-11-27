@@ -72,10 +72,8 @@ st.subheader("📜 History")
 if len(st.session_state.history) == 0:
     st.write("Innum transaction illa")
 else:
-    df = pd.DataFrame(st.session_state.history, columns=["Amount", "To", "Status"])
-    st.dataframe(df, use_container_width=True)
-    st.bar_chart(df["Amount"])
-
+       for h in reversed(st.session_state.history):
+        st.write(f"Rs. {h[0]} -> {h[1]} | {h[2]}") 
 if st.button("Logout"):
     st.session_state.logged_in = False
     st.rerun()
